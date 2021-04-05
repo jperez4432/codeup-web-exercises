@@ -54,7 +54,7 @@ console.log(person.lastName);
         {name: 'George', amount: 320}
     ];
 function discount(amount) {
-    if (amount >= 200) {
+    if (amount > 200) {
         return console.log("Your total discount is " + amount * .12);
     } else {
         return console.log("You are not eligible for a discount");

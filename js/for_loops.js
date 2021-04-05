@@ -38,4 +38,14 @@ for(i=1; i<=9; i++)
 
 
 
-for (var i = 100; i >= 0; i -= 5) {console.log(i);}
+//for (var i = 100; i >= 0; i -= 5) {console.log(i);}
+var family = ["Billy", "bob", "Slim","Jim", "aaron"]
+
+// function getLongestString(a, b){
+//     return a.length - b.length }
+// console.log(getLongestString("longest", "string"));
+
+function getLongestString(){
+    return family.sort(function(a,b){return b.length - a.length})[2];
+}
+console.log(getLongestString());
