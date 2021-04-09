@@ -1,0 +1,58 @@
+body {
+    background-image: url("repeatingwhite.jpeg");
+    font-family: "Apple SD Gothic Neo";
+    color: #afa1ff;
+    background-color: aliceblue;
+
+}
+h1,h2,h3{
+    text-decoration: underline;
+    text-decoration-color: darkgrey;
+}
+h1 {
+    color: #77f8e3;
+    border-bottom: 1px solid black;
+    text-align: center;
+}
+h2, h3 {
+    color: blueviolet;
+}
+aside, em {
+    font-family: sans-serif;
+}
+
+.bottom-border {
+    border-bottom: 1px solid blueviolet;
+}
+ul {
+    list-style: square;
+}
+ol {
+    list-style: upper-latin;
+}
+q {
+    font-weight: bold;
+}
+td, tr, table {
+    font-size: 20px;
+    padding-right: 80px;
+}
+
+section>p{
+    color: blue;
+}
+a:link{
+    color: rebeccapurple;
+}
+a:visited{
+    color: red;
+}
+a:hover {
+    color: turquoise;
+}
+a:active {
+    color: orange;
+}
+p::first-letter {
+    font-size: 110%;
+}
