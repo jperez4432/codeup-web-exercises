@@ -1,0 +1,36 @@
+body, html {
+    height: 100%;
+    width: 100%;
+    padding: 0;
+    margin: 0;
+    font-family: Arial, Ubuntu, sans-serif;
+}
+.message-info {
+    border-radius: 5px;
+    color: rgb(80, 80, 160);
+    background-color: rgb(198, 218, 254);
+    padding: 10px;
+    margin: 1em;
+
+}
+.message-success {
+    border-radius: 5px;
+    color: rgb(40, 110, 65);
+    background-color: rgb(202, 241, 214);
+    padding: 10px;
+    margin: 1em;
+}
+.message-warning {
+    border-radius: 5px;
+    color: rgb(140, 120, 40);
+    background-color: rgb(253, 249, 196);
+    padding: 10px;
+    margin: 1em;
+}
+.message-error {
+    border-radius: 5px;
+    color: rgb(150, 70, 80);
+    background-color: rgb(248, 204, 210);
+    padding: 10px;
+    margin: 1em;
+}
