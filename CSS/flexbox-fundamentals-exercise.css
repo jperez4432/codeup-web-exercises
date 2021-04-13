@@ -38,13 +38,11 @@ h2, h3 {
     background: white;
     padding: 1em;
     margin: 0 auto;
-
     /* enter needed declarations here */
 }
 /*done i believe*/
 section {
     display: flex;
-
     /* enter needed declarations here */
 
 }
