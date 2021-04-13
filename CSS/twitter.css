@@ -115,7 +115,7 @@ a {
     border: solid thin;
     border-color: var(--main-bg);
     padding: 0.5em;
-    overflow: auto;
+    display:flow-root;
 }
 .media-image {
     max-width: 50px;
