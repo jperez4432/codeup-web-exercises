@@ -25,6 +25,19 @@
 <script>
  $("#id-selectors").html("i am the chosen one");
  $(".class-selectors").css("font-family", 'sans-serif');
+ $("p").html("You've  been pwned");
+function pwned(num){
+ var pwn = 'youve been pwned';
+ for (var i = 0; i < num; i++) {
+     pwn = pwn +  "youve been pwned";
+ }
+ return pwn;
+ }
+
+ $("h1, h2, h3").html("ITS MINE")
+
+ $("*").css("font-style", "italic");
+
 </script>
 
 </body>
