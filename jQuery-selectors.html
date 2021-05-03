@@ -6,7 +6,7 @@
 </head>
 <body>
 <div>
-<h1 id="">jQuery Selectors</h1>
+<h1 id="header">jQuery Selectors</h1>
 <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Adipisci aperiam aspernatur, debitis dolorem doloremque
     ducimus est inventore ipsa magnam,
     mollitia nemo officia quos repellat temporibus velit vero voluptatibus. Cumque, quod?</p>
@@ -22,17 +22,32 @@
 
 </script>
 <script>
-$("h1").each(function () {
-    alert($("h1f").html());
+// $("h1").each(function () {
+//     alert($("h1f").html());
+// });
+//
+//
+// $("li").css("font-size", "20px");
+// $("h3").effect("highlight",{color:"green"}, 3000);
+// $("h1").css({"border-color": "red",
+//     "border-width":"1px",
+//     "border-style":"solid"});
+// var theContent = $("h1").html();
+
+$("#header").click(function () {
+    $(this).css("background-color", "blue");
+
 });
 
+$("p").dblclick(function () {
+    $(this).css("font-size", "18px");
+})
 
-$("li").css("font-size", "20px");
-$("h3").effect("highlight",{color:"green"}, 3000);
-$("h1").css({"border-color": "red",
-    "border-width":"1px",
-    "border-style":"solid"});
-var theContent = $("h1").html();
+$("li").hover(function () {
+    $(this).css("color", "red");
+}, function () {
+    $(this).css("color", "black")
+})
 
 </script>
 
