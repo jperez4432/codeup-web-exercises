@@ -6,8 +6,8 @@
     <title>Konami Code</title>
     <link rel="stylesheet" href="CSS/konami.css">
 </head>
-<body style="background-color: black"><iframe width="1500" height="1000" src="https://www.youtube.com/embed/GwmJ76VjXaE?autoplay=1"  title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
-
+<body><video src="video/The%20Lord%20of%20the%20Rings_%20The%20Fellowship%20of%20the%20Ring%20-%20_You%20Shall%20Not%20Pass_%20Clip%20%5BHD%5D.mp4" + autoplay + controls></video>
+<p>SAVE GANDALF</p>
 
 <!--<script src="/js/jquery.js"></script>-->
 
@@ -17,22 +17,67 @@
 
 </script>
     <script>
-        "use strict";
+        $("p").dblclick(function () {
+            $(this).css("font-size", "18px");
+        })
 
 
+        var global = {
 
-        $(document).keyup(function(event){
-        console.log(event.keyCode);
-    });
+            konami: function() {
+                var konamikeys = [38,38,40,40,37,39,37,39,66,65],
+                    started = false,
+                    count = 0;
+
+                $(document).keydown(function(e){
+                    var reset = function() {
+                        started = false;
+                        count = 0;
+                        return;
+                    };
+
+                    key = e.keyCode;
+
+                    // Begin watching if first key in sequence was pressed.
+                    if(!started){
+                        if(key == 38){
+                            started = true;
+                        }
+                    }
+
+                    // If we've started, pay attention to key presses, looking for right sequence.
+                    if (started){
+
+                        if (konamikeys[count] == key){
+                            count++;
+                        } else {
+                            // Incorrect key, restart.
+                            alert("HE DIED"); reset();
+                        }
+                        if (count == 10){
+                            // Success!
+                            $("selector".css({"background-image": "url("https://giphy.com/embed/4hnQDVKVARZ6w"}))
+                            // alert('Konami code entered! Do something cool here.');
+                            alert("HE DIED"); reset();
+                        }
+                    } else {
+                        alert("HE DIED"); reset();
+                    }
+                });
+            }
+        }
+        $(setTimeout(function () {
+            alert("SAVE GANDALF! Enter the magic code");
+
+            global.konami();
+        }, 5000));
+
+        //
+        //     prompt("SAVE GANDALF!");
+        // }, 5000));
+
 </script>
-
-<script src="js/KonamiCode.js"></script>
-
-
-<!--
-wreck it ralph konami code gif play after alert prompt to save Gandalf
-<iframe src="https://giphy.com/embed/4hnQDVKVARZ6w" width="480" height="202" frameBorder="0" class="giphy-embed" allowFullScreen></iframe><p><a href="https://giphy.com/gifs/code-konami-4hnQDVKVARZ6w">via GIPHY</a></p>-->
-</script>
+<!--<iframe src="https://giphy.com/embed/4hnQDVKVARZ6w" width="480" height="202" frameBorder="0" class="giphy-embed" allowFullScreen></iframe><p><a href="https://giphy.com/gifs/code-konami-4hnQDVKVARZ6w">via GIPHY</a></p> &ndash;&gt;-->
 
 </body>
 </html>
