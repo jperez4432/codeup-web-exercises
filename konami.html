@@ -6,9 +6,14 @@
     <title>Konami Code</title>
     <link rel="stylesheet" href="CSS/konami.css">
 </head>
-<body><video src="video/The%20Lord%20of%20the%20Rings_%20The%20Fellowship%20of%20the%20Ring%20-%20_You%20Shall%20Not%20Pass_%20Clip%20%5BHD%5D.mp4" + autoplay + controls></video>
-<p>SAVE GANDALF</p>
+<body style="background-color: black; color: white;" id="body" >
+<h1 style="display:flex; justify-content: center;">GANDALF NEEDS YOUR HELP!</h1>
+<div id="divVideo">
+<video autoplay loop id="video" controls>
+    <source src="video/The%20Lord%20of%20the%20Rings_%20The%20Fellowship%20of%20the%20Ring%20-%20_You%20Shall%20Not%20Pass_%20Clip%20%5BHD%5D.mp4">
+</video>
 
+</div>
 <!--<script src="/js/jquery.js"></script>-->
 
 
@@ -21,8 +26,9 @@
             $(this).css("font-size", "18px");
         })
 
-
+        var gandalf = 'video/gandalfsax.mp4';
         var global = {
+
 
             konami: function() {
                 var konamikeys = [38,38,40,40,37,39,37,39,66,65],
@@ -54,11 +60,14 @@
                             // Incorrect key, restart.
                             alert("HE DIED"); reset();
                         }
+
                         if (count == 10){
                             // Success!
-                            $("selector".css({"background-image": "url("https://giphy.com/embed/4hnQDVKVARZ6w"}))
+
+                            $("#divVideo video source").attr('src', gandalf);
+                            // document.body.style.backgroundImage = 'url("img/wreckitralphKonami.code.jpg")';
                             // alert('Konami code entered! Do something cool here.');
-                            alert("HE DIED"); reset();
+
                         }
                     } else {
                         alert("HE DIED"); reset();
@@ -66,6 +75,7 @@
                 });
             }
         }
+
         $(setTimeout(function () {
             alert("SAVE GANDALF! Enter the magic code");
 
