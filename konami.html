@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html>
 <head>
@@ -6,12 +5,12 @@
     <title>Konami Code</title>
     <link rel="stylesheet" href="CSS/konami.css">
 </head>
-<body style="background-color: black; color: white;" id="body" >
+<body style="background-color: black; color: white;" id="body">
 <h1 style="display:flex; justify-content: center;">GANDALF NEEDS YOUR HELP!</h1>
 <div id="divVideo">
-<video autoplay loop id="video" controls>
-    <source src="video/The%20Lord%20of%20the%20Rings_%20The%20Fellowship%20of%20the%20Ring%20-%20_You%20Shall%20Not%20Pass_%20Clip%20%5BHD%5D.mp4">
-</video>
+    <video id="v1" autoplay loop id="video" controls>
+        <source src="video/The%20Lord%20of%20the%20Rings_%20The%20Fellowship%20of%20the%20Ring%20-%20_You%20Shall%20Not%20Pass_%20Clip%20%5BHD%5D.mp4">
+    </video>
 
 </div>
 <!--<script src="/js/jquery.js"></script>-->
@@ -21,70 +20,72 @@
         integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous">
 
 </script>
-    <script>
-        $("p").dblclick(function () {
-            $(this).css("font-size", "18px");
-        })
+<script>
+    $("p").dblclick(function () {
+        $(this).css("font-size", "18px");
+    })
 
-        var gandalf = 'video/gandalfsax.mp4';
-        var global = {
+    var global = {
 
 
-            konami: function() {
-                var konamikeys = [38,38,40,40,37,39,37,39,66,65],
-                    started = false,
+        konami: function () {
+            var konamikeys = [38, 38, 40, 40, 37, 39, 37, 39, 66, 65],
+                started = false,
+                count = 0;
+
+            $(document).keydown(function (e) {
+                var reset = function () {
+                    started = false;
                     count = 0;
+                    return;
+                };
 
-                $(document).keydown(function(e){
-                    var reset = function() {
-                        started = false;
-                        count = 0;
-                        return;
-                    };
+                key = e.keyCode;
 
-                    key = e.keyCode;
-
-                    // Begin watching if first key in sequence was pressed.
-                    if(!started){
-                        if(key == 38){
-                            started = true;
-                        }
+                // Begin watching if first key in sequence was pressed.
+                if (!started) {
+                    if (key == 38) {
+                        started = true;
                     }
+                }
 
-                    // If we've started, pay attention to key presses, looking for right sequence.
-                    if (started){
+                // If we've started, pay attention to key presses, looking for right sequence.
+                if (started) {
 
-                        if (konamikeys[count] == key){
-                            count++;
-                        } else {
-                            // Incorrect key, restart.
-                            alert("HE DIED"); reset();
-                        }
-
-                        if (count == 10){
-                            // Success!
-
-                            $("#divVideo video source").attr('src', gandalf);
-                            // document.body.style.backgroundImage = 'url("img/wreckitralphKonami.code.jpg")';
-                            // alert('Konami code entered! Do something cool here.');
-
-                        }
+                    if (konamikeys[count] == key) {
+                        count++;
                     } else {
-                        alert("HE DIED"); reset();
+                        // Incorrect key, restart.
+                        alert("HE DIED");
+                        reset();
                     }
-                });
-            }
+
+                    if (count == 10) {
+                        // Success!
+                        //  $('#v1').html('<source src="video/gandalfsax.mp4" type="video/mp4"></source');
+
+                        $('#divVideo video').attr('src', 'video/gandalfsax.mp4')[0].load();
+                        // document.body.style.backgroundImage = 'url("img/wreckitralphKonami.code.jpg")';
+                        // alert('Konami code entered! Do something cool here.');
+
+                    }
+                } else {
+                    alert("HE DIED");
+                    reset();
+                }
+            });
         }
+    }
 
-        $(setTimeout(function () {
-            alert("SAVE GANDALF! Enter the magic code");
+    $(setTimeout(function () {
+        alert("SAVE GANDALF! Enter the magic code");
 
-            global.konami();
-        }, 5000));
+        global.konami();
+    }, 5000));
 
-        //
-        //     prompt("SAVE GANDALF!");
-        // }, 5000));
+    //
+    //     prompt("SAVE GANDALF!");
+    // }, 5000));
 
 </script>
 <!--<iframe src="https://giphy.com/embed/4hnQDVKVARZ6w" width="480" height="202" frameBorder="0" class="giphy-embed" allowFullScreen></iframe><p><a href="https://giphy.com/gifs/code-konami-4hnQDVKVARZ6w">via GIPHY</a></p> &ndash;&gt;-->
