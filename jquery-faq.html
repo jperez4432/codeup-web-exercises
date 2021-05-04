@@ -69,7 +69,7 @@
     <li>Evidence of human use in the area dates back over 12,000 years.</li>
     <li>The largest glacier in the park is 0.7 square miles.</li>
 </ul>
-<button id="highlight" type="button">Highlight the last li of each ul</button>
+<button id="highlight">Highlight the last li of each ul</button>
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"
         integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
 <script>
@@ -105,16 +105,17 @@
     });
 
 
-    $("li").each(function () {
-        $(this).css("font-style", "italic");
-        if (index % 2 !== 0) {
-            $(this).css("background-color", "blue");
-        }
+    // $("li").each(function (index) {
+    //     $(this).css("font-style", "italic");
+    //     if (index % 2 !== 0) {
+    //         $(this).css("background-color", "blue");
+    //     }
+    // });
+
+    $("#highlight").click(function () {
+        $("li").last().css("background-color", "yellow");
     });
 
-    $("#highlight").click( function () {
-        $("ul li").toggle().css("background-color", "yellow");
-    })
 
 
 </script>
