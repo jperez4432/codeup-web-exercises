@@ -5,7 +5,71 @@
     <title>jQuery FAQ</title>
 </head>
 <body>
+<dl>
+    <dt>What hours is the park open?</a></dt>
+    <dd class="invisible">This National park is open from the hours of 7am to 10pm, although you can make reservations to stay overnight</dd>
+    <dt>Can I build a campfire?</dt>
+    <dd class="invisible">You are allowed to create a campfire, as long as there is no county burn ban in place at the time</dd>
+    <dt>Can I drink alcohol in at the park?</dt>
+    <dd class="invisible">It is against park rules to drink or display an alcoholic beverage in a public place at any time</dd>
+    <dt>Where can I find information on hiking?</dt>
+    <dd class="invisible">You can find information regarding trails and tips within our brochures at the help desk upon entering!</dd>
+    <dt>May i carry my handgun?</dt>
+    <dd class="invisible">Our rules state that you may not show/display or fire your gun in a state park. If you have a valid Handgun License, you may carry your handgun in many state parks. But even with a license,
+        handguns are not allowed in parks that are leased from the federal government.</dd>
+    <dt>Can I bring my pet?</dt>
+    <dd class="invisible">You can bring your pets to almost all state parks! However, we do have some rules:
+    <ul>
+        <li>Pets must be on a leash at all times</li>
+        <li>You must be with your pet at all times and they cannot be left unattended </li>
+        <li>Pets must have current rabies vaccination and you must have proof with you</li>
+    </ul><dd>
+    <dt>How long may i stay at the park?</dt>
+    <dd class="invisible">Generally, you can stay for 14 consecutive days</dd>
+    <dt>Is wireless internet access available at the park?</dt>
+    <dd class="invisible">Some areas have WI-FI available. If you search the map it will show these areas</dd>
+    <dt>Can i ride my bike at the park?</dt>
+    <dd class="invisible">Almost all state parks offer road or mountain biking, or both! Many parks have long stretches
+        of road (some winding and hilly). Many of our parks have multiuse trails. Visit the map for the best trails!</dd>
+    <dt>How much does it cost to enter the park?</dt>
+    <dd class="invisible">The park cost $10 per car upon entrance.</dd>
+</dl>
+<button class="button">Display all answers</button>
+<script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
+<script>
 
+    $("dt").css("font-weight", "bold");
+
+    // $(".invisible").css("visibility", "hidden");
+    //
+    // $(".link").click( function () {
+    //     $(".invisible").css("visibility", "visible");
+    // }, function () {
+    //     $(".invisible").css("visibility", "hidden");
+    // });
+
+    $( document ).ready(function() {
+        $('dd').hide();
+        $('dt').click(function() {
+            var toggle = $(this).nextUntil('dt');
+            toggle.toggle();
+            // $('dd').not(toggle).slideUp();
+        });
+    });
+
+
+
+    $("dt").hover( function () {
+        $(this).css("background-color", "cornsilk");
+    }, function () {
+        $(this).css("background-color", "white");
+    });
+
+    $("#button").click(function () {
+        $("dd").toggleClass("visible");
+    });
+
+</script>
 
 </body>
 </html>
