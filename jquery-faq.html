@@ -70,17 +70,23 @@
     <li>The largest glacier in the park is 0.7 square miles.</li>
 </ul>
 <button id="highlight">Highlight the last li of each ul</button>
-<div class="container row" style="display: flex; justify-content: start;">
-    <div>
-        <img src="img/Yosemite.jpeg">
+<h3 style="text-align: center">jQuery Traversing Bonus</h3>
+<div id="container" class="row" style="display: flex; flex-direction: row; width: 800px;">
+    <div id="picture1" class="picture">
+        <img style="width: 30vw;" src="img/Yosemite.jpeg">
+        <button type="button" id="button1">Swap</button>
     </div>
-    <div>
-        <img src="img/Yellowstone.jpeg">
+    <div id="picture2" class="picture">
+        <img style="width: 30vw" src="img/Yellowstone.jpeg">
+        <button type="button" id="button2">Swap</button>
     </div>
-    <div>
-        <img src="img/glacierpark.jpg">
+    <div id="picture3" class="picture">
+        <img style="width: 30vw" src="img/glacierpark.jpg">
+        <button type="button" id="button3">Swap</button>
     </div>
 </div>
+
+
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"
         integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
 <script>
@@ -142,9 +148,45 @@
     // });
 
 
+$(document).ready(function () {
+   $("#button1").click(function (){
+       var nextImage = $(this).parent().next().children().first()
+       var nextImageSrc = nextImage.attr('src');
+       var thisSrc = $(this).prev().attr('src');
+       $(this).prev().attr('src', nextImageSrc);
+       nextImage.attr('src', thisSrc);
+   });
 
+    $("#button2").click(function(){
+        var randomNumber = Math.floor(Math.random()*2);
+        var nextImage = $(this).parent().next().children().first();
+        var nextImageSrc = nextImage.attr('src');
+        var previousImage = $(this).parent().prev().children().first();
+        var previousImageSrc = previousImage.attr('src');
+        var thisImage = $(this).prev();
+        var thisSrc = thisImage.attr('src');
+        if (randomNumber === 0){
+            previousImage.attr('src', thisSrc);
+            thisImage.attr('src', previousImageSrc);
+        } else {
+            $(this).prev().attr('src', nextImageSrc);
+            nextImage.attr('src', thisSrc);
+        }
+    });
+
+
+   $("#button3").click(function (){
+       var previousImage = $(this).parent().prev().children().first();
+       var previousImageSrc = previousImage.attr('src');
+       var thisImage = $(this).prev();
+       var thisSrc = thisImage.attr('src');
+       previousImage.attr('src', thisSrc);
+       thisImage.attr('src', previousImageSrc);
+   });
+});
 
 </script>
+
 
 </body>
 </html>
