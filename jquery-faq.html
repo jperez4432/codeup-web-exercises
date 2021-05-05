@@ -69,8 +69,8 @@
     <li>Evidence of human use in the area dates back over 12,000 years.</li>
     <li>The largest glacier in the park is 0.7 square miles.</li>
 </ul>
-<button id="highlight" style="display: flex; justify-content: start;">Highlight the last li of each ul</button>
-<div class="container row">
+<button id="highlight">Highlight the last li of each ul</button>
+<div class="container row" style="display: flex; justify-content: start;">
     <div>
         <img src="img/Yosemite.jpeg">
     </div>
@@ -115,13 +115,22 @@
         $("dd").toggleClass("visible");
     });
 
+    // $("#highlight").click(function () {
+    //     $("li").last().css("background-color", "yellow");
+    // });
+
+    $("#highlight").click(function (){
+        $("ul").each(function (){
+            $(this).children().last().css("background", "cornsilk");
+        })
+    })
 
     $("h3").click(function () {
         $(this).next().children().css("font-weight", "bold");
     });
 
     $("li").click(function () {
-        $(this).parent().css("color", "blue");
+        $(this).parent().children().first().css("color", "blue");
     });
 
 
@@ -132,9 +141,7 @@
     //     }
     // });
 
-    $("#highlight").click(function () {
-        $("li").last().css("background-color", "yellow");
-    });
+
 
 
 </script>
