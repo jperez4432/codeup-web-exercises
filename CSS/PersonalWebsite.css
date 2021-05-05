@@ -1,4 +1,13 @@
 a:link {
     color: yellow;
 }
+a {
+    font-family: 'Caveat', cursive;
+}
 
+h1 {
+    font-family: 'Caveat', cursive;
+}
+body {
+    font-family: 'Caveat', cursive;
+}
