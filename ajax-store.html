@@ -7,13 +7,13 @@
 
 <h1>My Tool Store</h1>
 
-<table id="products">
+<table id="products" class="table table-hover table-dark">
     <thead>
         <tr>
-            <th>Title</th>
-            <th>Quantity</th>
-            <th>Price</th>
-            <th>Categories</th>
+            <th scope="col">Title</th>
+            <th scope="col">Quantity</th>
+            <th scope="col">Price</th>
+            <th scope="col">Categories</th>
         </tr>
     </thead>
     <tbody id="insertProducts"></tbody>
@@ -46,6 +46,7 @@
                 htmlStr += "<td>" + inventory[i].price+ "</td>";
                 htmlStr += "<td>" + inventory[i].categories+ "</td>";
                 $("#insertProducts").append(htmlStr)
+               // not working $("#products").addClass("table table-hover table-dark");
             }
         });
     }
