@@ -10,7 +10,8 @@
 <body>
 <div id='map' style='width: 400px; height: 300px;'></div>
 <button id="fly">Fly</button>
-<button id="zoom">Zoom in</button>
+<button id="zoomIn">Zoom in</button>
+<button id="zoomOut">Zoom out</button>
 <script src="js/keys.js"></script>
 <script src='https://api.mapbox.com/mapbox-gl-js/v2.2.0/mapbox-gl.js'></script>
 
@@ -23,6 +24,7 @@
     zoom: 12 // starting zoom
   });
 
+
   document.getElementById('fly').addEventListener('click', function () {
     map.flyTo({
       center: [-97.0403, 32.8998],
@@ -30,20 +32,33 @@
     });
     map.setStyle('mapbox://styles/mapbox/dark-v10');
   });
-document.getElementById('zoom').addEventListener('click', function (){
-  map.setZoom(+1);
+document.getElementById('zoomIn').addEventListener('click', function (){
+  map.setZoom(map.getZoom() + 1);
 });
-  // map.flyTo({
-  //   center: [-97.0403, 32.8998],
-  //   zoom: 9,
-  //   speed: 0.2,
-  //   curve: 1,
-  //   easing(t) {
-  //     return t;
-  //   }
-  // });
-  // map.setStyle('mapbox://styles/mapbox/dark-v10');
+
   map.setZoom(12);
+  document.getElementById('zoomOut').addEventListener('click', function (){
+      map.setZoom(map.getZoom() - 1)});
+
+  map.addControl(new mapboxgl.NavigationControl());
+
+  var marker = new mapboxgl.Marker({
+      color: "red",
+  })
+      .setLngLat([-98.4683, 29.5312])
+      .setDraggable(true).setPopup(popup)
+      .addTo(map)
+
+marker.on('dragend', function (){
+    alert(marker.getLngLat().toString())
+});
+
+  var popup = new mapboxgl.Popup()
+  .setLngLat(marker.getLngLat())
+  .setHTML("<h3>Howdy!</h3>")
+  .addTo(map);
+
+  marker.setPopup(popup)
 
 </script>
 </body>
