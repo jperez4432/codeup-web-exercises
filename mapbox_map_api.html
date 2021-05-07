@@ -9,7 +9,7 @@
 
 </head>
 <body>
-<div id='map' style='width: 400px; height: 300px;'></div>
+<div id='map' style='width: 800px; height: 600px;'></div>
 <button id="zoomIn">Zoom in by 5</button>
 <button id="zoomOut">Zoom out by 5</button>
 <script src="js/keys.js"></script>
@@ -39,6 +39,20 @@
         .setLngLat([-98.5079, 29.5194])
         .setHTML('<h3 style="font-family: cursive;">Doughs Pizzeria</h3>')
         .addTo(map)
+
+
+    $(marker).click(function(){
+        popup.addTo(map);
+    })
+    //
+    // $(marker).click(function(){
+    //     popup1.addTo(map);
+    // })
+    //
+    // $(marker).click(function(){
+    //     popup2.addTo(map);
+    // })
+
 
 
     document.getElementById('zoomIn').addEventListener('click', function (){
