@@ -3,8 +3,34 @@
 <head>
     <meta charset="UTF-8">
     <title>Mapbox Maps</title>
+    <script src='https://api.mapbox.com/mapbox-gl-js/v2.2.0/mapbox-gl.js'></script>
+    <link href='https://api.mapbox.com/mapbox-gl-js/v2.2.0/mapbox-gl.css' rel='stylesheet' />
+    <link href="js/mapbox-geocoder-utils.js">
+
 </head>
 <body>
+<div id='map' style='width: 400px; height: 300px;'></div>
+<button id="zoomIn">Zoom in by 5</button>
+<button id="zoomOut">Zoom out by 5</button>
+<script src="js/keys.js"></script>
+<script src='https://api.mapbox.com/mapbox-gl-js/v2.2.0/mapbox-gl.js'></script>
+<script>
+    mapboxgl.accessToken = MAPBOX_ACCESS_TOKEN;
+    var map = new mapboxgl.Map({
+        container: 'map', // container ID
+        style: 'mapbox://styles/mapbox/streets-v11', // style URL
+        center: [-98.4916, 29.4252], // starting position [lng, lat]
+        zoom: 10 // starting zoom
+    });
 
+
+    document.getElementById('zoomIn').addEventListener('click', function (){
+        map.setZoom(map.getZoom() + 5)});
+
+    map.setZoom(12);
+    document.getElementById('zoomOut').addEventListener('click', function (){
+        map.setZoom(map.getZoom() - 5)});
+
+</script>
 </body>
 </html>
