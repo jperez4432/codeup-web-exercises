@@ -3,28 +3,55 @@
 <head>
     <meta charset="UTF-8">
     <title>OpenWeather API </title>
-  <script src='https://api.mapbox.com/mapbox-gl-js/v2.2.0/mapbox-gl.js'></script>
-  <link href='https://api.mapbox.com/mapbox-gl-js/v2.2.0/mapbox-gl.css' rel='stylesheet' />
-  <link href="js/mapbox-geocoder-utils.js">
+    <script src='https://api.mapbox.com/mapbox-gl-js/v2.2.0/mapbox-gl.js'></script>
+    <link href='https://api.mapbox.com/mapbox-gl-js/v2.2.0/mapbox-gl.css' rel='stylesheet'/>
+    <link href="js/mapbox-geocoder-utils.js">
 
 
 </head>
 <body>
 <h1> Open the console</h1>
-<div id='map' style='width: 800px; height: 600px;'></div>
-<script src="https://code.jquery.com/jquery-2.2.4.min.js" integrity="sha256-BbhdlvQf/xTY9gja0Dq3HiwQF8LaCRTXxZKRutelT44=" crossorigin="anonymous"></script>
+<div class="card" style='width: 800px; height: 600px;'></div>
+<script src="https://code.jquery.com/jquery-2.2.4.min.js"
+        integrity="sha256-BbhdlvQf/xTY9gja0Dq3HiwQF8LaCRTXxZKRutelT44=" crossorigin="anonymous"></script>
 <script src="js/keys.js"></script>
 <script>
-  var coordinates = [29.4241, -98.4936];
-$.get("https://api.openweathermap.org/data/2.5/onecall?units=imperial&lat=" + coordinates[0] + "&lon=" + coordinates[1] +  "&appid=" + WEATHER_MAP_TOKEN)
-.done(function (resp){
-  console.log(resp);
-  var today = resp.daily[0];
-  var todayDate = new Date(today.dt * 1000);
-  console.log(todayDate);
-});
+    // var coordinates = [29.4241, -98.4936];
+    // $.get("https://api.openweathermap.org/data/2.5/onecall?units=imperial&lat=" + coordinates[0] + "&lon=" + coordinates[1] + "&exclude=hourly,minutely&appid=" + WEATHER_MAP_TOKEN)
+    //     .done(function (resp) {
+    //         console.log(resp);
+    //         var today = resp.daily[0];
+    //         var todayDate = new Date(today.dt * 1000);
+    //         console.log(todayDate);
+
+    $.get("http://api.openweathermap.org/data/2.5/weather", {
+        APPID: WEATHER_MAP_TOKEN,
+        lat:    29.4241,
+        lon:   -98.4936,
+        units: "imperial"
+    }).done(function(data) {
+        console.log('current', data);
+    });
 
 
+
+
+        //     var currentTemp = resp.current.feels_like
+        //
+        //     console.log(resp.current.wind_speed);
+        //     console.log(currentTemp);
+        // });
+        //     function todaysTemp() {
+        //         $("#weather").html("");
+        //         $.get("https://api.openweathermap.org/data/2.5/onecall?units=imperial&lat=" + coordinates[0] + "&lon=" + coordinates[1] + "&exclude=hourly,minutely&appid=" + WEATHER_MAP_TOKEN)
+        //             .done(function (temp) {
+        //                 for (var i = 0; i < temp.length; i++) {
+        //                     var htmlStr = "<div 'id=weather-" + (i + 1) + "'class=weathers'>";
+        //                     htmlStr += "<p>" + currentTemp + "</p>";
+        //                     $("#weather").append(htmlStr);
+        //                 }
+        //             });
+            // todaysTemp();
 
 </script>
 </body>
