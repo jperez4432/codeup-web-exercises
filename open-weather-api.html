@@ -11,8 +11,8 @@
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
 
 </head>
-<body>
-<h1>Weather App</h1>
+<body style="background-color: black">
+<h1 style="color: white; text-align: center">Weather App</h1>
 <div class="weather card-group"></div>
 <div id='map' style='width: 600px; height: 500px;'></div>
 <script src="https://code.jquery.com/jquery-2.2.4.min.js"
@@ -31,11 +31,13 @@
         exclude: "minutely,hourly",
     });
         apiInfo.done(function (resp) {
-        console.log('5 day forecast', resp);
+        console.log('Forecast', resp);
 
         // console.log(resp);
         var today = resp.daily[0];
+
         var todayDate = new Date(today.dt * 1000).toDateString();
+
         console.log(todayDate);
 
 
@@ -43,20 +45,22 @@
             $(".weather").html("");
             var htmlStr = "";
             for (var i = 0; i < resp.daily.length; i++) {
-                htmlStr += "<div id='weather' class='card-body' style='display: flex; flex-direction: row; list-style: none;'" + (i) + ">";
-                htmlStr += '<h5 class="card-title">' + todayDate + '</h5>';
-                htmlStr += '<p>Clouds ' + resp.daily[i].clouds + '</>';
+                htmlStr += "<div id='weather' class='card-group text-white bg-primary mb-3 mr-3' style='display: flex; flex-direction: column; list-style: none;'" + (i) + ">";
+                htmlStr += "<div id='card>'"
+                htmlStr += '<h5 class="card-title">' + new Date(resp.daily[i].dt * 1000).toDateString(); + '</h5>';
+                htmlStr += '<p class="card-text">Clouds ' + resp.daily[i].clouds + '</>';
                 htmlStr += '<p>High ' + resp.daily[i].temp.max + '</p>';
                 htmlStr += '<p>Low ' + resp.daily[i].temp.min + '</p>';
                 htmlStr += '<p>Feels like ' + resp.daily[i].feels_like.day + '</p>';
                 htmlStr += '<p>Wind Speed ' + resp.daily[i].wind_speed + '</p>';
                 htmlStr += '<p>Humidity ' + resp.daily[i].humidity + '</p>';
                 htmlStr += '</div>';
+                htmlStr += '</div>';
             }
                 // var htmlStr = "<div 'id=weather-" + (i + 1) + "'class=weathers'>";
                 // htmlStr += "<p>" + currentTemp + "</p>";
 
-
+                console.log(resp.daily[2]);
                  $(".weather").append(htmlStr);
 
         }
