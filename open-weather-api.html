@@ -6,12 +6,15 @@
     <script src='https://api.mapbox.com/mapbox-gl-js/v2.2.0/mapbox-gl.js'></script>
     <link href='https://api.mapbox.com/mapbox-gl-js/v2.2.0/mapbox-gl.css' rel='stylesheet'/>
     <link href="js/mapbox-geocoder-utils.js">
-
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
 
 </head>
 <body>
-<h1> Open the console</h1>
-<div class="weather"></div>
+<h1>Weather App</h1>
+<div class="weather card-group"></div>
+<div id='map' style='width: 600px; height: 500px;'></div>
 <script src="https://code.jquery.com/jquery-2.2.4.min.js"
         integrity="sha256-BbhdlvQf/xTY9gja0Dq3HiwQF8LaCRTXxZKRutelT44=" crossorigin="anonymous"></script>
 <script src="js/keys.js"></script>
@@ -32,7 +35,7 @@
 
         // console.log(resp);
         var today = resp.daily[0];
-        var todayDate = new Date(today.dt * 1000);
+        var todayDate = new Date(today.dt * 1000).toDateString();
         console.log(todayDate);
 
 
@@ -40,11 +43,14 @@
             $(".weather").html("");
             var htmlStr = "";
             for (var i = 0; i < resp.daily.length; i++) {
-                htmlStr += "<div id='weather" + (i) + "'>";
-                htmlStr += '<p>' + resp.daily[i].clouds + '</p>';
-                htmlStr += '<p>' + resp.daily[i].temp.max + '</p>';
-                htmlStr += '<p>' + resp.daily[i].feels_like.day + '</p>';
-                htmlStr += '<p>' + resp.daily[i].wind_speed + '</p>';
+                htmlStr += "<div id='weather' class='card-body' style='display: flex; flex-direction: row; list-style: none;'" + (i) + ">";
+                htmlStr += '<h5 class="card-title">' + todayDate + '</h5>';
+                htmlStr += '<p>Clouds ' + resp.daily[i].clouds + '</>';
+                htmlStr += '<p>High ' + resp.daily[i].temp.max + '</p>';
+                htmlStr += '<p>Low ' + resp.daily[i].temp.min + '</p>';
+                htmlStr += '<p>Feels like ' + resp.daily[i].feels_like.day + '</p>';
+                htmlStr += '<p>Wind Speed ' + resp.daily[i].wind_speed + '</p>';
+                htmlStr += '<p>Humidity ' + resp.daily[i].humidity + '</p>';
                 htmlStr += '</div>';
             }
                 // var htmlStr = "<div 'id=weather-" + (i + 1) + "'class=weathers'>";
@@ -56,6 +62,23 @@
         }
             weeklyWeather();
         });
+
+
+
+
+        //Mapbox code
+    mapboxgl.accessToken = MAPBOX_ACCESS_TOKEN;
+    var map = new mapboxgl.Map({
+        container: 'map', // container ID
+        style: 'mapbox://styles/mapbox/streets-v11', // style URL
+        center: [-98.4916, 29.4252], // starting position [lng, lat]
+        zoom: 10 // starting zoom
+    });
+    var marker = new mapboxgl.Marker({
+        color: 'red'
+    })
+        .setLngLat([-98.4870, 29.4113])
+        .addTo(map);
 </script>
 </body>
 </html>
