@@ -23,14 +23,14 @@
     // $.get("https://api.openweathermap.org/data/2.5/onecall?units=imperial&lat=" + coordinates[0] + "&lon=" + coordinates[1] + "&exclude=hourly,minutely&appid=" + WEATHER_MAP_TOKEN)
     //     .done(function (resp) {
 
-        var apiInfo = $.get('https://api.openweathermap.org/data/2.5/onecall', {
+    var apiInfo = $.get('https://api.openweathermap.org/data/2.5/onecall', {
         APPID: WEATHER_MAP_TOKEN,
         lat: 29.4241,
         lon: -98.4936,
         units: "imperial",
         exclude: "minutely,hourly",
     });
-        apiInfo.done(function (resp) {
+    apiInfo.done(function (resp) {
         console.log('Forecast', resp);
 
         // console.log(resp);
@@ -47,30 +47,30 @@
             for (var i = 0; i < resp.daily.length; i++) {
                 htmlStr += "<div id='weather' class='card-group text-white bg-primary mb-3 mr-3' style='display: flex; flex-direction: column; list-style: none;'" + (i) + ">";
                 htmlStr += "<div id='card>'"
-                htmlStr += '<h5 class="card-title">' + new Date(resp.daily[i].dt * 1000).toDateString(); + '</h5>';
-                htmlStr += '<p class="card-text">Clouds ' + resp.daily[i].clouds + '</>';
+                htmlStr += '<h5 class="card-title">' + new Date(resp.daily[i].dt * 1000).toDateString();
+                +'</h5>';
+                htmlStr += '<p>' + resp.daily[i].weather[0].description + '</>';
+                htmlStr += '<img src="http://openweathermap.org/img/w/' + resp.daily[i].weather[0].icon + '.png">'
                 htmlStr += '<p>High ' + resp.daily[i].temp.max + '</p>';
                 htmlStr += '<p>Low ' + resp.daily[i].temp.min + '</p>';
+                htmlStr += '<p>Rain %' + resp.daily[i].rain + '</p>';
                 htmlStr += '<p>Feels like ' + resp.daily[i].feels_like.day + '</p>';
                 htmlStr += '<p>Wind Speed ' + resp.daily[i].wind_speed + '</p>';
                 htmlStr += '<p>Humidity ' + resp.daily[i].humidity + '</p>';
                 htmlStr += '</div>';
                 htmlStr += '</div>';
             }
-                // var htmlStr = "<div 'id=weather-" + (i + 1) + "'class=weathers'>";
-                // htmlStr += "<p>" + currentTemp + "</p>";
-
-                console.log(resp.daily[2]);
-                 $(".weather").append(htmlStr);
+            // var htmlStr = "<div 'id=weather-" + (i + 1) + "'class=weathers'>";
+            // htmlStr += "<p>" + currentTemp + "</p>";
+            $(".weather").append(htmlStr);
 
         }
-            weeklyWeather();
-        });
+
+        weeklyWeather();
+    });
 
 
-
-
-        //Mapbox code
+    //Mapbox code
     mapboxgl.accessToken = MAPBOX_ACCESS_TOKEN;
     var map = new mapboxgl.Map({
         container: 'map', // container ID
