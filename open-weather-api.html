@@ -79,10 +79,21 @@
         zoom: 10 // starting zoom
     });
     var marker = new mapboxgl.Marker({
-        color: 'red'
+        color: 'red',
+        draggable: true
     })
-        .setLngLat([-98.4870, 29.4113])
+        .setLngLat([0, 0])
         .addTo(map);
+
+    function onDragEnd() {
+        var lngLat = marker.getLngLat();
+        console.log(lngLat)
+    }
+
+    marker.on('dragend', onDragEnd);
+    onDragEnd()
+
+
 </script>
 </body>
 </html>
