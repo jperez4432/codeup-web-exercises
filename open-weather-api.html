@@ -11,7 +11,7 @@
 </head>
 <body>
 <h1> Open the console</h1>
-<div class="card" style='width: 800px; height: 600px;'></div>
+<div class="weather"></div>
 <script src="https://code.jquery.com/jquery-2.2.4.min.js"
         integrity="sha256-BbhdlvQf/xTY9gja0Dq3HiwQF8LaCRTXxZKRutelT44=" crossorigin="anonymous"></script>
 <script src="js/keys.js"></script>
@@ -19,40 +19,43 @@
     // var coordinates = [29.4241, -98.4936];
     // $.get("https://api.openweathermap.org/data/2.5/onecall?units=imperial&lat=" + coordinates[0] + "&lon=" + coordinates[1] + "&exclude=hourly,minutely&appid=" + WEATHER_MAP_TOKEN)
     //     .done(function (resp) {
-    //         console.log(resp);
-    //         var today = resp.daily[0];
-    //         var todayDate = new Date(today.dt * 1000);
-    //         console.log(todayDate);
 
-    $.get("http://api.openweathermap.org/data/2.5/weather", {
+        var apiInfo = $.get('https://api.openweathermap.org/data/2.5/onecall', {
         APPID: WEATHER_MAP_TOKEN,
-        lat:    29.4241,
-        lon:   -98.4936,
-        units: "imperial"
-    }).done(function(data) {
-        console.log('current', data);
+        lat: 29.4241,
+        lon: -98.4936,
+        units: "imperial",
+        exclude: "minutely,hourly",
     });
+        apiInfo.done(function (resp) {
+        console.log('5 day forecast', resp);
+
+        // console.log(resp);
+        var today = resp.daily[0];
+        var todayDate = new Date(today.dt * 1000);
+        console.log(todayDate);
 
 
+        function weeklyWeather() {
+            $(".weather").html("");
+            var htmlStr = "";
+            for (var i = 0; i < resp.daily.length; i++) {
+                htmlStr += "<div id='weather" + (i) + "'>";
+                htmlStr += '<p>' + resp.daily[i].clouds + '</p>';
+                htmlStr += '<p>' + resp.daily[i].temp.max + '</p>';
+                htmlStr += '<p>' + resp.daily[i].feels_like.day + '</p>';
+                htmlStr += '<p>' + resp.daily[i].wind_speed + '</p>';
+                htmlStr += '</div>';
+            }
+                // var htmlStr = "<div 'id=weather-" + (i + 1) + "'class=weathers'>";
+                // htmlStr += "<p>" + currentTemp + "</p>";
 
 
-        //     var currentTemp = resp.current.feels_like
-        //
-        //     console.log(resp.current.wind_speed);
-        //     console.log(currentTemp);
-        // });
-        //     function todaysTemp() {
-        //         $("#weather").html("");
-        //         $.get("https://api.openweathermap.org/data/2.5/onecall?units=imperial&lat=" + coordinates[0] + "&lon=" + coordinates[1] + "&exclude=hourly,minutely&appid=" + WEATHER_MAP_TOKEN)
-        //             .done(function (temp) {
-        //                 for (var i = 0; i < temp.length; i++) {
-        //                     var htmlStr = "<div 'id=weather-" + (i + 1) + "'class=weathers'>";
-        //                     htmlStr += "<p>" + currentTemp + "</p>";
-        //                     $("#weather").append(htmlStr);
-        //                 }
-        //             });
-            // todaysTemp();
+                 $(".weather").append(htmlStr);
 
+        }
+            weeklyWeather();
+        });
 </script>
 </body>
 </html>
