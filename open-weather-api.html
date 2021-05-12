@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" xmlns="http://www.w3.org/1999/html">
 <head>
     <meta charset="UTF-8">
     <title>OpenWeather API </title>
@@ -13,6 +13,8 @@
 </head>
 <body style="background-color: black">
 <h1 style="color: white; text-align: center">Weather App</h1>
+<input placeholder="Search for a city">
+<button>Search</button>
 <div class="weather card-group"></div>
 <div id='map' style='width: 600px; height: 500px;'></div>
 <script src="https://code.jquery.com/jquery-2.2.4.min.js"
@@ -23,52 +25,6 @@
     // $.get("https://api.openweathermap.org/data/2.5/onecall?units=imperial&lat=" + coordinates[0] + "&lon=" + coordinates[1] + "&exclude=hourly,minutely&appid=" + WEATHER_MAP_TOKEN)
     //     .done(function (resp) {
 
-    var apiInfo = $.get('https://api.openweathermap.org/data/2.5/onecall', {
-        APPID: WEATHER_MAP_TOKEN,
-        lat: 29.4241,
-        lon: -98.4936,
-        units: "imperial",
-        exclude: "minutely,hourly",
-    });
-    apiInfo.done(function (resp) {
-        console.log('Forecast', resp);
-
-        // console.log(resp);
-        var today = resp.daily[0];
-
-        var todayDate = new Date(today.dt * 1000).toDateString();
-
-        console.log(todayDate);
-
-
-        function weeklyWeather() {
-            $(".weather").html("");
-            var htmlStr = "";
-            for (var i = 0; i < resp.daily.length; i++) {
-                htmlStr += "<div id='weather' class='card-group text-white bg-primary mb-3 mr-3' style='display: flex; flex-direction: column; list-style: none;'" + (i) + ">";
-                htmlStr += "<div id='card>'"
-                htmlStr += '<h5 class="card-title">' + new Date(resp.daily[i].dt * 1000).toDateString();
-                +'</h5>';
-                htmlStr += '<p>' + resp.daily[i].weather[0].description + '</>';
-                htmlStr += '<img src="http://openweathermap.org/img/w/' + resp.daily[i].weather[0].icon + '.png">'
-                htmlStr += '<p>High ' + resp.daily[i].temp.max + '</p>';
-                htmlStr += '<p>Low ' + resp.daily[i].temp.min + '</p>';
-                htmlStr += '<p>Rain %' + resp.daily[i].rain + '</p>';
-                htmlStr += '<p>Feels like ' + resp.daily[i].feels_like.day + '</p>';
-                htmlStr += '<p>Wind Speed ' + resp.daily[i].wind_speed + '</p>';
-                htmlStr += '<p>Humidity ' + resp.daily[i].humidity + '</p>';
-                htmlStr += '</div>';
-                htmlStr += '</div>';
-            }
-            // var htmlStr = "<div 'id=weather-" + (i + 1) + "'class=weathers'>";
-            // htmlStr += "<p>" + currentTemp + "</p>";
-            $(".weather").append(htmlStr);
-
-        }
-
-        weeklyWeather();
-    });
-
 
     //Mapbox code
     mapboxgl.accessToken = MAPBOX_ACCESS_TOKEN;
@@ -78,20 +34,112 @@
         center: [-98.4916, 29.4252], // starting position [lng, lat]
         zoom: 10 // starting zoom
     });
+
     var marker = new mapboxgl.Marker({
         color: 'red',
         draggable: true
     })
-        .setLngLat([0, 0])
+        .setLngLat([-98.4936, 29.4241])
         .addTo(map);
+    displayWeather(marker.getLngLat().lat, marker.getLngLat().lng);
 
-    function onDragEnd() {
-        var lngLat = marker.getLngLat();
-        console.log(lngLat)
-    }
+    marker.on('dragend', function () {
+        displayWeather(marker.getLngLat().lat, marker.getLngLat().lng);
+        marker.setPopup();
+    });
 
-    marker.on('dragend', onDragEnd);
-    onDragEnd()
+
+    // need to fix the lat/lng to update after markers dropped, add a console log for the on drag end to actually show
+    //updated coordinates in the console log
+
+
+    function displayWeather(lat, lon) {
+
+        $.get('https://api.openweathermap.org/data/2.5/onecall', {
+            APPID: WEATHER_MAP_TOKEN,
+            lat: lat,
+            lon: lon,
+            units: "imperial",
+            exclude: "minutely,hourly",
+        }).done(function (resp) {
+            console.log('Forecast', resp);
+
+            // console.log(resp);
+            var today = resp.daily[0];
+
+            var todayDate = new Date(today.dt * 1000).toDateString();
+
+            console.log(todayDate);
+
+
+            function weeklyWeather() {
+                $(".weather").html("");
+                var htmlStr = "";
+                for (var i = 0; i < resp.daily.length; i++) {
+                    htmlStr += "<div id='weather' class='card-group text-white bg-primary mb-3 mr-3' style='display: flex; flex-direction: column; list-style: none;'" + (i) + ">";
+                    htmlStr += "<div id='card>'"
+                    htmlStr += '<h5 class="card-title">' + new Date(resp.daily[i].dt * 1000).toDateString();
+                    +'</h5>';
+                    htmlStr += '<p>' + resp.daily[i].weather[0].description + '</p>';
+                    htmlStr += '<img src="http://openweathermap.org/img/w/' + resp.daily[i].weather[0].icon + '.png">'
+                    htmlStr += '<p>High ' + Math.round(resp.daily[i].temp.max) + '°</p>';
+                    htmlStr += '<p>Low ' + Math.round(resp.daily[i].temp.min) + '°</p>';
+                    htmlStr += '<p>Rain ' + (resp.daily[i].rain) + '%</p>';
+                    htmlStr += '<p>Feels like ' + Math.round(resp.daily[i].feels_like.day) + '°</p>';
+                    htmlStr += '<p>Wind Speed ' + (resp.daily[i].wind_speed) + "mph " + windCardinalDirection(resp.daily[i].wind_speed) + '</p>';
+                    htmlStr += '<p>Humidity ' + resp.daily[i].humidity + '</p>';
+                    htmlStr += '</div>';
+                    htmlStr += '</div>';
+                }
+                // var htmlStr = "<div 'id=weather-" + (i + 1) + "'class=weathers'>";
+                // htmlStr += "<p>" + currentTemp + "</p>";
+                $(".weather").append(htmlStr);
+
+
+                function windCardinalDirection(degrees) {
+                    let cardinalDirection = '';
+                    if ((degrees > 348.75 && degrees <= 360) || (degrees >= 0 && degrees <= 11.25)) {
+                        cardinalDirection = "N";
+                    } else if (degrees > 11.25 && degrees <= 33.75) {
+                        cardinalDirection = "NNE";
+                    } else if (degrees > 33.75 && degrees <= 56.25) {
+                        cardinalDirection = "NE";
+                    } else if (degrees > 56.25 && degrees <= 78.75) {
+                        cardinalDirection = "ENE";
+                    } else if (degrees > 78.75 && degrees <= 101.25) {
+                        cardinalDirection = "E";
+                    } else if (degrees > 101.25 && degrees <= 123.75) {
+                        cardinalDirection = "ESE";
+                    } else if (degrees > 123.75 && degrees <= 146.25) {
+                        cardinalDirection = "SE";
+                    } else if (degrees > 146.25 && degrees <= 168.75) {
+                        cardinalDirection = "SSE";
+                    } else if (degrees > 168.75 && degrees <= 191.25) {
+                        cardinalDirection = "S";
+                    } else if (degrees > 191.25 && degrees <= 213.75) {
+                        cardinalDirection = "SSW";
+                    } else if (degrees > 213.75 && degrees <= 236.25) {
+                        cardinalDirection = "SW";
+                    } else if (degrees > 236.25 && degrees <= 258.75) {
+                        cardinalDirection = "WSW";
+                    } else if (degrees > 258.75 && degrees <= 281.25) {
+                        cardinalDirection = "W";
+                    } else if (degrees > 281.25 && degrees <= 303.75) {
+                        cardinalDirection = "WNW";
+                    } else if (degrees > 303.75 && degrees <= 326.25) {
+                        cardinalDirection = "NW";
+                    } else if (degrees > 326.75 && degrees <= 348.75) {
+                        cardinalDirection = "NNW";
+                    }
+                    return cardinalDirection;
+                }
+            }
+
+
+            weeklyWeather();
+        });
+    };
+    displayWeather();
 
 
 </script>
