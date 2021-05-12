@@ -10,6 +10,7 @@
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
 
+
 </head>
 <body style="background-color: black">
 <h1 style="color: white; text-align: center">Weather App</h1>
@@ -68,7 +69,7 @@
         }).done(function (resp) {
          //   console.log('Forecast', resp);
 
-            // console.log(resp);
+            console.log(resp);
             var today = resp.daily[0];
 
             var todayDate = new Date(today.dt * 1000).toDateString();
@@ -80,17 +81,17 @@
                 $(".weather").html("");
                 var htmlStr = "";
                 for (var i = 0; i < resp.daily.length; i++) {
-                    htmlStr += "<div id='weather' class='card-group text-white bg-primary mb-3 mr-3' style='display: flex; flex-direction: column; list-style: none;'" + (i) + ">";
-                    htmlStr += "<div id='card>'"
-                    htmlStr += '<h5 class="card-title">' + new Date(resp.daily[i].dt * 1000).toDateString();
-                    +'</h5>';
+                    htmlStr += "<div id='weather card-group' class='card-group text-white bg-light mb-3 mr-3' style='display: flex; flex-direction: column; list-style: none;'" + (i) + ">";
+                    htmlStr += "<div id='card>' style='color: grey'"
+                    htmlStr += '<h2 class="card-title" style="margin-left: 1em">' + new Date(resp.daily[i].dt * 1000).toDateString();
+                    +'</h2>';
                     htmlStr += '<p>' + resp.daily[i].weather[0].description + '</p>';
                     htmlStr += '<img src="http://openweathermap.org/img/w/' + resp.daily[i].weather[0].icon + '.png">'
                     htmlStr += '<p>High ' + Math.round(resp.daily[i].temp.max) + '°</p>';
                     htmlStr += '<p>Low ' + Math.round(resp.daily[i].temp.min) + '°</p>';
-                    htmlStr += '<p>Rain ' + (resp.daily[i].rain) + '%</p>';
+                    htmlStr += '<p>Rain ' + (resp.daily[i].pop * 100) + '%</p>';
                     htmlStr += '<p>Feels like ' + Math.round(resp.daily[i].feels_like.day) + '°</p>';
-                    htmlStr += '<p>Wind Speed ' + (resp.daily[i].wind_speed) + "mph " + windCardinalDirection(resp.daily[i].wind_speed) + '</p>';
+                    htmlStr += '<p>Wind Speed ' + Math.round(resp.daily[i].wind_speed) + "mph " + windCardinalDirection(resp.daily[i].wind_speed) + '</p>';
                     htmlStr += '<p>Humidity ' + resp.daily[i].humidity + '</p>';
                     htmlStr += '</div>';
                     htmlStr += '</div>';
