@@ -1,0 +1,7 @@
+#card {
+    border-radius: 25px;
+}
+
+h4, .card-title {
+    font-weight: bold;
+}
