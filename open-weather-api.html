@@ -71,6 +71,9 @@
             //  console.log(todayDate);
 
 
+
+
+
             function weeklyWeather() {
                 $(".weather").html("");
                 var htmlStr = "";
@@ -91,6 +94,12 @@
                     htmlStr += '</div>';
                 }
                 $(".weather").append(htmlStr);
+
+                if (resp.daily[0].weather[0].main == 'rain') {$("body").css("background-img", "url('img/rain.gif')");
+                } else if (resp.daily[0].weather[0].main == 'clouds') {$("body").css("background-img", "url('img/cloudy.gif')");
+                } else $("body").css("background-img", "url('img/sunny.gif')");
+
+
 
 
                 function windCardinalDirection(degrees) {
