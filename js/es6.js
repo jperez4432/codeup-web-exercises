@@ -53,7 +53,7 @@ console.log(users1);
 let emails = [];
 let names = [];
 
-
+console.log(emails, names);
 
 // TODO: rewrite the following using arrow functions
 users.forEach(function(user) {
