@@ -111,11 +111,11 @@ let emails =  users.map(function(user){
    user = user.email;
    return user;
 });
+console.log(emails);
 
 // ES6
 let es6Emails = users.map(user => user.email);
-
-
+console.log(es6Emails);
 
 // const languages = users.filter(function (){
 //    return users.languages;
