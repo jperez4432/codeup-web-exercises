@@ -82,7 +82,7 @@ users.forEach(function(user) {
 
   // TODO: rewrite the assignment below to use template strings
   // developers.push(name + '\'s email is ' + email + name + ' knows ' + languages.join(', '));
-
+developers.push(${name} + `email is `.email.name `knows ` + languages.join());
 });
 
 // TODO: Use `let` for the following variable
