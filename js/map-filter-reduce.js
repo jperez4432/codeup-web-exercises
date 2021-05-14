@@ -106,16 +106,22 @@ const users = [
 ];
 
 // es5
+//
+// let emails =  users.map(function(user){
+//    user = user.email;
+//    return user;
+// });
+// console.log(emails);
+//
+// // ES6
+// let es6Emails = users.map(user => user.email);
+// console.log(es6Emails);
 
-let emails =  users.map(function(user){
-   user = user.email;
-   return user;
+let minOf3 = users.filter(function (user){
+   return user.languages.length >= 3;
 });
-console.log(emails);
+console.log(minOf3);
 
-// ES6
-let es6Emails = users.map(user => user.email);
-console.log(es6Emails);
 
 // const languages = users.filter(function (){
 //    return users.languages;
@@ -127,3 +133,4 @@ console.log(es6Emails);
 //   return users.email
 // });
 // console.log(emails);
+
