@@ -182,7 +182,13 @@ const users = [
 //    }
 // }, []);
 
-let longestUserEmail = users.reduce((a, b) => {
-   return a.length > b.email.length ? a : b.email;
-});
-console.log(longestUserEmail);
+// let longestUserEmail = users.reduce((a, b) => {
+//    return a.length > b.email.length ? a : b.email;
+// });
+// console.log(longestUserEmail);
+
+// let longestUserEmail = users.reduce((a, b) => {
+//    return a.length > b.email.length ? a : b.email;
+// });
+//
+// let longestUserEmail = email.reduce((a, b) => a.length > b.length ? a : b);
