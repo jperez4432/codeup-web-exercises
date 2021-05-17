@@ -192,3 +192,20 @@ const users = [
 // });
 //
 // let longestUserEmail = email.reduce((a, b) => a.length > b.length ? a : b);
+
+let names = users.reduce(function(accumulator, user){
+   accumulator.push(user.name);
+   return accumulator;
+}, []);
+
+let usersNames = users.reduce((accumulator, user, index, arr) => {
+   if (index === arr.length -1) {
+      accumulator += `${user.name}.`;
+   } else {
+      accumulator += `${user.name}, `;
+   }
+   return accumulator;
+},'Users names are: ');
+
+console.log(usersNames);
+console.log(names.join(', '));
