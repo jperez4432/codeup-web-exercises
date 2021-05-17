@@ -116,13 +116,13 @@ const users = [
 // // ES6
 // let es6Emails = users.map(user => user.email);
 // console.log(es6Emails);
-
-let minOf3 = users.filter(function (user){
-   return user.languages.length >= 3;
-});
-console.log(minOf3);
-
-
+//
+// let minOf3 = users.filter(function (user){
+//    return user.languages.length >= 3;
+// });
+// console.log(minOf3);
+//
+//
 // const languages = users.filter(function (){
 //    return users.languages;
 // });
@@ -133,4 +133,56 @@ console.log(minOf3);
 //   return users.email
 // });
 // console.log(emails);
+//
 
+// my attempt
+// let experience = users.reduce(function (accumulator, user){
+//   accumulator.push(user.email);
+//   return accumulator;
+// }, []);
+// console.log(experience);
+
+
+//correct answer
+// let totalYears = users.reduce(function (total, user){
+//    let yearsOfExperience = user.yearsOfExperience;
+//    return total + yearsOfExperience;
+// }, 0);
+// console.log(totalYears);
+
+//es6
+// totalYears = users.reduce((total, user)=> total + user.yearsOfExperience, 0);
+// console.log(totalYears)
+//
+
+// my attempt
+
+// let longestEmail =users.reduce(function (accumulator, user, index, usersArray){
+//    if (index ===  usersArray.length - 1) {
+//       accumulator.push(user.email);
+//       accumulator.sort(function (b, a){return b-a});
+//       return accumulator[0];
+//    } else {
+//       accumulator.push(user.email);
+//       return accumulator;
+//    }
+// }, []);
+// console.log("The longest email address is " + longestEmail);
+//
+// let longestEmail = users.reduce(function (accumlator, user,index, usersArray){
+//    if (index === usersArray.length - 1){
+//       accumlator.push(user.email);
+//       accumlator.sort(function (email1, email2){
+//          return email2.length - email1.length;
+//       });
+//       return accumlator[0];
+//    }   else {
+//       accumulator.push(user.email);
+//       return  accumlator;
+//    }
+// }, []);
+
+let longestUserEmail = users.reduce((a, b) => {
+   return a.length > b.email.length ? a : b.email;
+});
+console.log(longestUserEmail);
