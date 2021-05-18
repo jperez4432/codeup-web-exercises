@@ -9,6 +9,7 @@ const getBooks = () => {
     fetch("https://childlike-trapezoidal-whippet.glitch.me/books")
         .then(resp => resp.json())
         .then(books => {
+            console.log(books);
             let htmlStr = "";
             for (let book of books) {
                 htmlStr += `<h1>${book.title}</h1><p>by: ${book.author.firstName} ${book.author.lastName}</p>`;
@@ -19,7 +20,6 @@ const getBooks = () => {
 fetch("https://childlike-trapezoidal-whippet.glitch.me/books/1")
     .then(resp => resp.json())
     .then(book => console.log(book));
-
 //  POST
 let newBook = {
     "title": "Percy Jackson & The Lightning Thief",
@@ -79,8 +79,28 @@ let patchOptions = {
 
 
 
+
 // PUT
 fetch("https://childlike-trapezoidal-whippet.glitch.me/books/6", putOptions).then(getBooks);
 fetch("https://childlike-trapezoidal-whippet.glitch.me/books/7", patchOptions).then(getBooks);
 
 getBooks()
+
+// DELETE
+
+let deleteOptions = {
+    method: 'DELETE',
+    headers: {
+        'Content-Type': 'application/json',
+    }
+};
+
+
+
+$("#uniqueBooks").click(() => {
+    let inputVal = $("#id-to-delete").val();
+    fetch(`https://childlike-trapezoidal-whippet.glitch.me//${inputVal}`, deleteOptions)
+        .then(getBooks);
+})
+// fetch("https://childlike-trapezoidal-whippet.glitch.me/books/11", deleteOptions).then(getBooks);
+// fetch(`https://childlike-trapezoidal-whippet.glitch.me/books/${book.id}`, deleteOptions).then(getBooks);
