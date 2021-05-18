@@ -39,6 +39,48 @@ let postOptions = {
 
 $("#addPercy").click(() => {
     fetch("https://childlike-trapezoidal-whippet.glitch.me/books", postOptions)
-        .then(resp => resp.json())
         .then(getBooks);
 });
+
+// PUT
+let putThis = {
+    "title": "Percy Jackson & The Sea of Monsters",
+    "author": {
+        "firstName": "Rick",
+        "lastName": "Riordan"
+    }
+}
+
+let putOptions = {
+    method: 'PUT',
+    headers: {
+        'Content-Type': 'application/json'
+    },
+    body: JSON.stringify(putThis),
+}
+
+
+// Patch
+let patchThis = {
+    "title": "Percy Jackson & The Titans Curse",
+    "author": {
+        "firstName": "TRick",
+        "lastName": "Riordan"
+    }
+}
+
+let patchOptions = {
+    method: 'PATCH',
+    headers: {
+        'Content-Type': 'application/json',
+    },
+    body: JSON.stringify(patchThis),
+}
+
+
+
+// PUT
+fetch("https://childlike-trapezoidal-whippet.glitch.me/books/6", putOptions).then(getBooks);
+fetch("https://childlike-trapezoidal-whippet.glitch.me/books/7", patchOptions).then(getBooks);
+
+getBooks()
