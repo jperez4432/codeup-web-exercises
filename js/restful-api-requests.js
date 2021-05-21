@@ -102,7 +102,7 @@ $("#uniqueBooks").click(() => {
     fetch(`https://childlike-trapezoidal-whippet.glitch.me//${inputVal}`, dele)
 
 
-        })
+
 })
 // fetch("https://childlike-trapezoidal-whippet.glitch.me/books/11", deleteOptions).then(getBooks);
 // fetch(`https://childlike-trapezoidal-whippet.glitch.me/books/${book.id}`, deleteOptions).then(getBooks);
