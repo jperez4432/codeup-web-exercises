@@ -95,13 +95,9 @@ let deleteOptions = {
     }
 };
 
-
-
 $("#uniqueBooks").click(() => {
     let inputVal = $("#id-to-delete").val();
     fetch(`https://childlike-trapezoidal-whippet.glitch.me//${inputVal}`, dele)
-
-
 
 })
 // fetch("https://childlike-trapezoidal-whippet.glitch.me/books/11", deleteOptions).then(getBooks);
