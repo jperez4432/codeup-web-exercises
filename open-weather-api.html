@@ -18,13 +18,13 @@
 <body style="background-color: black">
 <nav class="navbar bg-primary sticky-top">
 <h1 style="color: white; text-align: center" class="jumbotron;">Weather App</h1>
-    <form class="form-inline">
+    <div>
 <input id="searchbar" type="search" placeholder="Search for a city">
 <button id="button" class="btn btn-light btn-outline-secondary btn-sm">Search</button>
-    </form>
+    </div>
 </nav>
 
-<div class="weather card-group"></div>
+<div class="weather card-group" style="padding-left: 2em"></div>
 
 <div id='map' style='width: 90vw; height: 500px; margin-left: 2em'></div>
 <hr color="lightblue">
@@ -76,28 +76,28 @@
             exclude: "minutely,hourly",
         }).done(function (resp) {
             //   console.log('Forecast', resp);
-
-            console.log(resp);
+            // If all data for selected city and array is needed, use this console log
+           // console.log(resp);
             var today = resp.daily[0];
 
             var todayDate = new Date(today.dt * 1000).toDateString();
-
+// fixed the divs and have the right set up, see if i can add the bootstrap properly for lines 92 which is what we fixed
             //  console.log(todayDate);
             function weeklyWeather() {
                 $(".weather").html("");
                 var htmlStr = "";
                 for (var i = 0; i < 7; i++) {
                     htmlStr += "<div id='weather card-group' class='card-group text-white bg-light mb-2 mr-2' style='display: flex; flex-direction: column; padding-top: 2em; list-style: none; border-radius: 25px; text-align: center'" + (i) + ">";
-                    htmlStr += "<div id='card>' style='color: grey; border-radius: 25px'"
-                    htmlStr += '<h4 class="card-title"">' + new Date(resp.daily[i].dt * 1000).toDateString()
-                        + '</h4>';
+                    htmlStr += "<div id='card' style='color: grey; border-radius: 25px'>"
+                    htmlStr += '<p style="color: hotpink;" class="card-title">' + new Date(resp.daily[i].dt * 1000).toDateString()
+                        + '</p>';
                     htmlStr += '<p>' + resp.daily[i].weather[0].description + '</p>';
                     htmlStr += '<img src="http://openweathermap.org/img/w/' + resp.daily[i].weather[0].icon + '.png">'
                     htmlStr += '<p>High ' + Math.round(resp.daily[i].temp.max) + '°</p>';
                     htmlStr += '<p>Low ' + Math.round(resp.daily[i].temp.min) + '°</p>';
-                    htmlStr += '<p>Rain ' + (resp.daily[i].pop * 100) + '%</p>';
+                    htmlStr += '<p>Rain ' + Math.round(resp.daily[i].pop * 100) + '%</p>';
                     htmlStr += '<p>Feels like ' + Math.round(resp.daily[i].feels_like.day) + '°</p>';
-                    htmlStr += '<p>Wind Speed ' + Math.round(resp.daily[i].wind_speed) + "mph " + windCardinalDirection(resp.daily[i].wind_speed) + '</p>';
+                    htmlStr += '<p>Wind Speed: <br>' + Math.round(resp.daily[i].wind_speed) + "mph " + windCardinalDirection(resp.daily[i].wind_speed) + '</p>';
                     htmlStr += '<p>Humidity ' + resp.daily[i].humidity + '</p>';
                     htmlStr += '</div>';
                     htmlStr += '</div>';
@@ -164,7 +164,9 @@
             // do something with results
             marker.setLngLat(results);
             displayWeather(marker.getLngLat().lat, marker.getLngLat().lng);
-            console.log(results)
+
+            // if the coordinates of the newly selected city is needed, use this console log
+      //      console.log(results)
             map.flyTo({
                 center: results,
                 zoom: 10,
