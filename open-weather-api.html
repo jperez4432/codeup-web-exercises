@@ -16,14 +16,25 @@
 
 </head>
 <body style="background-color: black">
-<nav class="navbar bg-primary fixed-top ">
+<nav class="navbar bg-primary sticky-top">
 <h1 style="color: white; text-align: center" class="jumbotron;">Weather App</h1>
+    <form class="form-inline">
 <input id="searchbar" type="search" placeholder="Search for a city">
-<button>Search</button>
+<button id="button" class="btn btn-light btn-outline-secondary btn-sm">Search</button>
+    </form>
 </nav>
+
 <div class="weather card-group"></div>
 
 <div id='map' style='width: 90vw; height: 500px; margin-left: 2em'></div>
+<hr color="lightblue">
+<footer>
+    <div>
+        <h2 style="color: lightgray; text-align: center">Enjoy the use of this weather app without ads or interruptions!</h2>
+        <p style="color: lightgray; text-align: center">You can drag and drop the marker above and it will automatically update the weather by using the coordinates of where it was placed.</p>
+        <p style="color: lightgray; text-align: center">Have fun by searching for a city in the searchbar and having the map fly you to the new location!</p>
+    </div>
+</footer>
 <script src="https://code.jquery.com/jquery-2.2.4.min.js"
         integrity="sha256-BbhdlvQf/xTY9gja0Dq3HiwQF8LaCRTXxZKRutelT44=" crossorigin="anonymous"></script>
 <script src="js/keys.js"></script>
@@ -76,7 +87,7 @@
                 $(".weather").html("");
                 var htmlStr = "";
                 for (var i = 0; i < 7; i++) {
-                    htmlStr += "<div id='weather card-group' class='card-group text-white bg-light mb-2 mr-2' style='display: flex; flex-direction: column; list-style: none; border-radius: 25px; text-align: center'" + (i) + ">";
+                    htmlStr += "<div id='weather card-group' class='card-group text-white bg-light mb-2 mr-2' style='display: flex; flex-direction: column; padding-top: 2em; list-style: none; border-radius: 25px; text-align: center'" + (i) + ">";
                     htmlStr += "<div id='card>' style='color: grey; border-radius: 25px'"
                     htmlStr += '<h4 class="card-title"">' + new Date(resp.daily[i].dt * 1000).toDateString()
                         + '</h4>';
@@ -139,10 +150,10 @@
 
             weeklyWeather();
         });
-    };
+    }
 
 
-    $("button").click(function () {
+    $("#button").click(function () {
         var userInput = $('#searchbar').val()
         geo(userInput);
     });
@@ -160,7 +171,6 @@
                 speed: 1,
             })
         });
-
     }
 </script>
 </body>
