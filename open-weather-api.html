@@ -10,12 +10,12 @@
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/css/bootstrap.min.css"
           integrity="sha384-TX8t27EcRE3e/ihU7zmQxVncDAy5uIKz4rEkgIXeMed4M0jlfIDPvg6uqKI2xXr2" crossorigin="anonymous">
-    <script rel="stylesheet" src="CSS/open-weather-api.css"></script>
+<!--    <script rel="stylesheet" src="CSS/open-weather-api.css"></script>-->
     <script src="js/open-weather-api-utils.js"></script>
     <link rel="stylesheet" href="CSS/open-weather-api.css">
 
 </head>
-<body style="background-color: black">
+<body id="site" style="background-color: black">
 <nav class="navbar bg-primary sticky-top">
 <h1 style="color: white; text-align: center" class="jumbotron;">Weather App</h1>
     <div>
@@ -89,7 +89,7 @@
                 for (var i = 0; i < 7; i++) {
                     htmlStr += "<div id='weather card-group' class='card-group text-white bg-light mb-2 mr-2' style='display: flex; flex-direction: column; padding-top: 2em; list-style: none; border-radius: 25px; text-align: center'" + (i) + ">";
                     htmlStr += "<div id='card' style='color: grey; border-radius: 25px'>"
-                    htmlStr += '<p style="color: hotpink;" class="card-title">' + new Date(resp.daily[i].dt * 1000).toDateString()
+                    htmlStr += '<p style="font-weight: bold;" class="card-title">' + new Date(resp.daily[i].dt * 1000).toDateString()
                         + '</p>';
                     htmlStr += '<p>' + resp.daily[i].weather[0].description + '</p>';
                     htmlStr += '<img src="http://openweathermap.org/img/w/' + resp.daily[i].weather[0].icon + '.png">'
@@ -104,9 +104,21 @@
                 }
                 $(".weather").append(htmlStr);
 
-                if (resp.daily[0].weather[0].main == 'rain') {$("body").css("background-img", "url('img/rain.gif')");
-                } else if (resp.daily[0].weather[0].main == 'clouds') {$("body").css("background-img", "url('img/cloudy.gif')");
-                } else $("body").css("background-img", "url('img/sunny.gif')");
+
+
+
+
+                // $("body").css("background", "url('img/sunny.gif')");
+                //
+                function background () {
+                    if (resp.daily[0].weather[0].main === 'Rain') {
+                        $("body").css("background", "url('img/rain.gif')");
+                         } else if (resp.daily[0].weather[0].main === 'Clouds') {$("body").css("background", "url('img/cloudy.gif')");
+                         } else $("body").css("background", "url('img/sunny.gif')");
+                         }
+                console.log(resp.daily[0].weather[0].main);
+                background();
+
 
                 function windCardinalDirection(degrees) {
                     let cardinalDirection = '';
