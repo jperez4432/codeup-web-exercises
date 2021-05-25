@@ -77,7 +77,7 @@
         }).done(function (resp) {
             //   console.log('Forecast', resp);
             // If all data for selected city and array is needed, use this console log
-           // console.log(resp);
+            console.log(resp);
             var today = resp.daily[0];
 
             var todayDate = new Date(today.dt * 1000).toDateString();
@@ -110,12 +110,17 @@
 
                 // $("body").css("background", "url('img/sunny.gif')");
                 //
-                function background () {
+                function background() {
                     if (resp.daily[0].weather[0].main === 'Rain') {
-                        $("body").css("background", "url('img/rain.gif')");
-                         } else if (resp.daily[0].weather[0].main === 'Clouds') {$("body").css("background", "url('img/cloudy.gif')no-repeat");
-                         } else $("body").css("background", "url('img/sunny.gif')no-repeat");
-                         }
+                        $("body").css({"background": "url('img/rain.gif'", "background-size": "cover"});
+                    } else if (resp.daily[0].weather[0].main === 'Clouds') {
+                        $("body").css({"background": "url('img/cloudyday.jpeg'", "background-size": "cover"});
+                    } else if (resp.daily[0].weather[0].main === 'Clear') {
+                        $("body").css({"background": "url('img/clearsky.jpeg'", "background-size": "cover"});
+                    } else {
+                        $("body").css({"background": "url('img/sunnyday.jpeg'", "background-size": "cover"});
+                    }
+                }
                 console.log(resp.daily[0].weather[0].main);
                 background();
 
