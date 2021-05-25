@@ -114,11 +114,11 @@
                     if (resp.daily[0].weather[0].main === 'Rain') {
                         $("body").css({"background": "url('img/rain.gif'", "background-size": "cover"});
                     } else if (resp.daily[0].weather[0].main === 'Clouds') {
-                        $("body").css({"background": "url('img/cloudyday.jpeg'", "background-size": "cover"});
+                        $("body").css({"background": "url('img/sunny.gif'", "background-size": "cover"});
                     } else if (resp.daily[0].weather[0].main === 'Clear') {
-                        $("body").css({"background": "url('img/clearsky.jpeg'", "background-size": "cover"});
+                        $("body").css({"background": "url('img/cloudy.gif'", "background-size": "cover"});
                     } else {
-                        $("body").css({"background": "url('img/sunnyday.jpeg'", "background-size": "cover"});
+                        $("body").css({"background": "url('img/sunny.gif'", "background-size": "cover"});
                     }
                 }
                 console.log(resp.daily[0].weather[0].main);
