@@ -41,10 +41,6 @@
 <script src="js/open-weather-api-utils.js"></script>
 
 <script>
-    // var coordinates = [29.4241, -98.4936];
-    // $.get("https://api.openweathermap.org/data/2.5/onecall?units=imperial&lat=" + coordinates[0] + "&lon=" + coordinates[1] + "&exclude=hourly,minutely&appid=" + WEATHER_MAP_TOKEN)
-    //     .done(function (resp) {
-    //Mapbox code
     mapboxgl.accessToken = MAPBOX_ACCESS_TOKEN;
     var map = new mapboxgl.Map({
         container: 'map', // container ID
@@ -75,14 +71,11 @@
             units: "imperial",
             exclude: "minutely,hourly",
         }).done(function (resp) {
-            //   console.log('Forecast', resp);
-            // If all data for selected city and array is needed, use this console log
+
             console.log(resp);
             var today = resp.daily[0];
 
             var todayDate = new Date(today.dt * 1000).toDateString();
-// fixed the divs and have the right set up, see if i can add the bootstrap properly for lines 92 which is what we fixed
-            //  console.log(todayDate);
             function weeklyWeather() {
                 $(".weather").html("");
                 var htmlStr = "";
@@ -103,9 +96,7 @@
                     htmlStr += '</div>';
                 }
                 $(".weather").append(htmlStr);
-
                 // $("body").css("background", "url('img/sunny.gif')");
-                //
                 function background() {
                     if (resp.daily[0].weather[0].main === 'Rain') {
                         $("body").css({"background": "url('img/rain.gif'", "background-size": "cover"});
@@ -119,7 +110,6 @@
                 }
                 console.log(resp.daily[0].weather[0].main);
                 background();
-
 
                 function windCardinalDirection(degrees) {
                     let cardinalDirection = '';
@@ -160,17 +150,14 @@
                 }
             }
 
-
             weeklyWeather();
         });
     }
-
 
     $("#button").click(function () {
         var userInput = $('#searchbar').val()
         geo(userInput);
     });
-
 
     function geo(input) {
         geocode(input, MAPBOX_ACCESS_TOKEN).then(function (results) {
