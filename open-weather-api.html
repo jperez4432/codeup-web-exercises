@@ -164,9 +164,8 @@
             // do something with results
             marker.setLngLat(results);
             displayWeather(marker.getLngLat().lat, marker.getLngLat().lng);
-
             // if the coordinates of the newly selected city is needed, use this console log
-      //      console.log(results)
+            //      console.log(results)
             map.flyTo({
                 center: results,
                 zoom: 10,
