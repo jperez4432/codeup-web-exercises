@@ -96,7 +96,6 @@
                     htmlStr += '</div>';
                 }
                 $(".weather").append(htmlStr);
-                // $("body").css("background", "url('img/sunny.gif')");
                 function background() {
                     if (resp.daily[0].weather[0].main === 'Rain') {
                         $("body").css({"background": "url('img/rain.gif'", "background-size": "cover"});
@@ -161,7 +160,6 @@
 
     function geo(input) {
         geocode(input, MAPBOX_ACCESS_TOKEN).then(function (results) {
-            // do something with results
             marker.setLngLat(results);
             displayWeather(marker.getLngLat().lat, marker.getLngLat().lng);
             // if the coordinates of the newly selected city is needed, use this console log
