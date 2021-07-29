@@ -65,7 +65,7 @@
                 var htmlStr = "<ul id='product-" + (i + 1) + "'class='products'>";
                 htmlStr += "<p>" + blog[i].title + "</p>";
                 htmlStr += "<p>" + blog[i].content + "</p>";
-                htmlStr += "<p>#" + blog[i].categories + "<br> " + blog[1].date + "</p>";
+                htmlStr += "<p>" + blog[i].categories + "<br> " + blog[1].date + "</p>";
                 $(".posts").append(htmlStr)
                 // not working $("#products").addClass("table table-hover table-dark");
             }
