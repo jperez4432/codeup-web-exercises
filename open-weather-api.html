@@ -3,7 +3,7 @@
 <head>
 
     <meta charset="UTF-8">
-    <title>OpenWeather API </title>
+    <title>Weather App</title>
     <script src='https://api.mapbox.com/mapbox-gl-js/v2.2.0/mapbox-gl.js'></script>
     <link href='https://api.mapbox.com/mapbox-gl-js/v2.2.0/mapbox-gl.css' rel='stylesheet'/>
     <link href="js/mapbox-geocoder-utils.js">
@@ -15,7 +15,7 @@
     <link rel="stylesheet" href="CSS/open-weather-api.css">
 
 </head>
-<body id="site" style="background-color: black; max-height: 100vw; background-size: cover" background="img/weatherbg.png">
+<body id="site" style="background-color: black; font-family: 'Helvetica'; max-height: 100vw; background-size: cover" background="img/weatherbg.png">
 <nav class="navbar bg-primary sticky-top">
     <h1 style="color: white; text-align: center" class="jumbotron;">Weather App</h1>
     <div>
@@ -24,7 +24,7 @@
     </div>
 </nav>
 
-<div class="weather card-group" style="padding-left: 2em; padding-top: 2em"></div>
+<div class="weather card-group" style="padding-left: 1em; padding-top: 1em"></div>
 
 <div id='map' class="mx-auto" style='width: 90vw; height: 500px; margin-left: 2em'></div>
 <hr color="white">
@@ -85,8 +85,8 @@
                 var htmlStr = "";
                 for (var i = 0; i < 7; i++) {
                     htmlStr += '<div class="mx-auto">'
-                    htmlStr += "<div id='weather card-group' class='card-group text-white bg-light mb-2 mr-2' style='display: flex; flex-direction: column; padding-top: 2em; list-style: none; border-radius: 25px; text-align: center'" + (i) + ">";
-                    htmlStr += "<div id='card' style='color: grey; border-radius: 25px;'>"
+                    htmlStr += "<div id='weather card-group' class='card-group text-white bg-light mb-2 mx-2' style='display: flex; flex-direction: column; padding: 1em; list-style: none; border-radius: 25px; text-align: center'" + (i) + ">";
+                    htmlStr += "<div id='card col-3' style='color: grey; border-radius: 25px;'>"
                     htmlStr += '<p style="font-weight: bold;" class="card-title mx-2">' + new Date(resp.daily[i].dt * 1000).toDateString()
                         + '</p>';
                     htmlStr += '<p>' + resp.daily[i].weather[0].description + '</p>';
@@ -102,7 +102,7 @@
                     htmlStr += '</div>';
                 }
                 $(".weather").append(htmlStr);
-
+                // used this to change the background image depending on the weather.
                 // function background() {
                 //     if (resp.daily[0].weather[0].main === 'Rain') {
                 //         $("body").css({"background": "url('img/rain.gif'", "background-size": "cover"});
@@ -160,6 +160,88 @@
             weeklyWeather();
         });
     }
+
+    // RAIN OVERLAY
+    window.map = map;
+    map.on("load", () => {
+        fetch("https://api.rainviewer.com/public/weather-maps.json")
+            .then(res => res.json())
+            .then(apiData => {
+                apiData.radar.past.forEach(frame => {
+                    map.addLayer({
+                        id: `rainviewer_${frame.path}`,
+                        type: "raster",
+                        source: {
+                            type: "raster",
+                            tiles: [
+                                apiData.host + frame.path + '/256/{z}/{x}/{y}/2/1_1.png'
+                            ],
+                            tileSize: 256
+                        },
+                        layout: { visibility: "none" },
+                        minzoom: 0,
+                        maxzoom: 12
+                    });
+                });
+
+                let i = 0;
+                const interval = setInterval(() => {
+                    if (i > apiData.radar.past.length - 1) {
+                        clearInterval(interval);
+                        // return;
+                    } else {
+                        apiData.radar.past.forEach((frame, index) => {
+                            map.setLayoutProperty(
+                                `rainviewer_${frame.path}`,
+                                "visibility",
+                                index === i || index === i - 1 ? "visible" : "none"
+                            );
+                        });
+                        if (i - 1 >= 0) {
+                            const frame = apiData.radar.past[i - 1];
+                            let opacity = 1;
+                            setTimeout(() => {
+                                const i2 = setInterval(() => {
+                                    if (opacity <= 0) {
+                                        return clearInterval(i2);
+                                    }
+                                    map.setPaintProperty(
+                                        `rainviewer_${frame.path}`,
+                                        "raster-opacity",
+                                        opacity
+                                    );
+                                    opacity -= 0.1;
+                                }, 50);
+                            }, 400);
+                        }
+                        i += 1;
+                    }
+                }, 2000);
+            })
+            .catch(console.error);
+    });
+
+    map.on('load', function () {
+        map.addSource('aerisweather-radar', {
+            "type": 'raster',
+            "tiles": [
+                'https://maps1.aerisapi.com/[clientId]_[clientKey]/radar/{z}/{x}/{y}/current.png',
+                'https://maps2.aerisapi.com/[clientId]_[clientKey]/radar/{z}/{x}/{y}/current.png',
+                'https://maps3.aerisapi.com/[clientId]_[clientKey]/radar/{z}/{x}/{y}/current.png',
+                'https://maps4.aerisapi.com/[clientId]_[clientKey]/radar/{z}/{x}/{y}/current.png'
+            ],
+            "tileSize": 256,
+            "attribution": "<a href='https://www.aerisweather.com/'>AerisWeather</a>"
+        });
+        map.addLayer({
+            "id": "radar-tiles",
+            "type": "raster",
+            "source": "aerisweather-radar",
+            "minzoom": 0,
+            "maxzoom":22
+        });
+    });
+
 
     $("#button").click(function () {
         var userInput = $('#searchbar').val()
